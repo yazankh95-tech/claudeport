@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yazan Alkhawandi - Architect & Interior Designer</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: hsl(0 0% 4%);
+        color: hsl(0 0% 96%);
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+    <script>
+      window.onerror = function (message, source, lineno, colno, error) {
+        var div = document.createElement('div');
+        div.style.position = 'fixed';
+        div.style.inset = '0';
+        div.style.background = 'rgba(30, 10, 10, 0.98)';
+        div.style.color = '#ff6b6b';
+        div.style.padding = '30px';
+        div.style.zIndex = '999999';
+        div.style.fontFamily = 'monospace';
+        div.style.overflow = 'auto';
+        div.style.fontSize = '14px';
+        div.style.lineHeight = '1.5';
+        div.innerHTML = '<h1 style=\"color: #ff4a4a; margin-bottom: 20px;\">🚨 Runtime Error Captured</h1>' +
+          '<p><strong>Message:</strong> ' + message + '</p>' +
+          '<p><strong>Source:</strong> ' + source + '</p>' +
+          '<p><strong>Line:</strong> ' + lineno + ' <strong>Column:</strong> ' + colno + '</p>' +
+          '<pre style=\"background: #1e1010; padding: 15px; border-radius: 8px; border: 1px solid #4a1a1a; margin-top: 20px; white-space: pre-wrap;\">' + (error && error.stack ? error.stack : 'No stack trace available') + '</pre>';
+        document.body.appendChild(div);
+        return false;
+      };
+      window.addEventListener('unhandledrejection', function (event) {
+        var div = document.createElement('div');
+        div.style.position = 'fixed';
+        div.style.inset = '0';
+        div.style.background = 'rgba(30, 10, 10, 0.98)';
+        div.style.color = '#ff6b6b';
+        div.style.padding = '30px';
+        div.style.zIndex = '999999';
+        div.style.fontFamily = 'monospace';
+        div.style.overflow = 'auto';
+        div.style.fontSize = '14px';
+        div.style.lineHeight = '1.5';
+        div.innerHTML = '<h1 style=\"color: #ff4a4a; margin-bottom: 20px;\">🚨 Unhandled Promise Rejection</h1>' +
+          '<p><strong>Reason:</strong> ' + event.reason + '</p>';
+        document.body.appendChild(div);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/main.tsx"></script>
+  </body>
+</html>
