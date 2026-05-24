@@ -6,6 +6,9 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    // Allow Vercel preview host
+    host: true,
+    allowedHosts: ['sb-161lc6yewh4j.vercel.run'],
   },
   build: {
     outDir: 'dist',
