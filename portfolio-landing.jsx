@@ -113,22 +113,27 @@ const projectsData = [
 // ============================================================================
 // LOADING SCREEN
 // ============================================================================
+// ============================================================================
+// LOADING SCREEN (Premium Curtain Split Reveal Transition)
+// ============================================================================
 function LoadingScreen({ onComplete }) {
   const [count, setCount] = useState(0);
+  const [isExiting, setIsExiting] = useState(false);
   const frameRef = useRef(0);
   const startTimeRef = useRef(Date.now());
-  const rolesRef = useRef(["Draft", "Design", "Compose"]);
+  const rolesRef = useRef(["DRAFT", "DESIGN", "COMPOSE"]);
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
     const animate = () => {
       const elapsed = Date.now() - startTimeRef.current;
-      const progress = Math.min(elapsed / 2500, 1);
+      const progress = Math.min(elapsed / 2200, 1);
       const newCount = Math.floor(progress * 100);
       setCount(newCount);
 
       if (newCount >= 100) {
-        setTimeout(() => onComplete(), 400);
+        setIsExiting(true);
+        setTimeout(() => onComplete(), 800);
       } else {
         frameRef.current = requestAnimationFrame(animate);
       }
@@ -141,61 +146,72 @@ function LoadingScreen({ onComplete }) {
   useEffect(() => {
     const roleTimer = setInterval(
       () => setRoleIndex((prev) => (prev + 1) % rolesRef.current.length),
-      800
+      700
     );
     return () => clearInterval(roleTimer);
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-bg flex items-center justify-center overflow-hidden">
-      {/* Top-left label */}
+    <div className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden flex">
+      {/* Left Shutter Panel */}
       <motion.div
-        className="absolute top-8 left-6 text-xs text-muted uppercase tracking-[0.3em]"
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-      >
-        YK DESIGN
-      </motion.div>
+        className="w-1/2 h-full bg-[#030303] flex items-center justify-end border-r border-[#d4af37]/10"
+        initial={{ x: 0 }}
+        animate={{ x: isExiting ? "-100%" : "0%" }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      />
+      {/* Right Shutter Panel */}
+      <motion.div
+        className="w-1/2 h-full bg-[#030303] flex items-center justify-start border-l border-[#d4af37]/10"
+        initial={{ x: 0 }}
+        animate={{ x: isExiting ? "100%" : "0%" }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      />
 
-      {/* Center rotating words */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={roleIndex}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display italic text-text-primary/80"
+      {/* Centered Loading Overlay Content */}
+      <AnimatePresence>
+        {!isExiting && (
+          <motion.div 
+            className="absolute inset-0 flex flex-col items-center justify-center z-[10000] pointer-events-auto"
+            exit={{ opacity: 0, scale: 0.95, filter: "blur(8px)" }}
+            transition={{ duration: 0.4 }}
           >
-            {rolesRef.current[roleIndex]}
+            {/* Top-left label */}
+            <div className="absolute top-8 left-6 text-xs text-[#d4af37] font-semibold uppercase tracking-[0.4em]">
+              YK DESIGN GROUP
+            </div>
+
+            {/* Center rotating words */}
+            <div className="flex flex-col items-center gap-4">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={roleIndex}
+                  initial={{ y: 15, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -15, opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-4xl md:text-6xl font-display italic text-[#d4af37] tracking-wider"
+                >
+                  {rolesRef.current[roleIndex]}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Bottom-right counter */}
+            <div className="absolute bottom-12 right-8 text-5xl md:text-7xl font-display text-text-primary/70 tabular-nums">
+              {String(count).padStart(3, "0")}
+            </div>
+
+            {/* Micro Gold Loading line */}
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5">
+              <div 
+                className="h-full bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] transition-all duration-75"
+                style={{ width: `${count}%`, boxShadow: "0 0 10px rgba(212,175,55,0.4)" }}
+              />
+            </div>
           </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Bottom-right counter */}
-      <motion.div
-        className="absolute bottom-12 right-8 text-6xl md:text-8xl lg:text-9xl font-display text-text-primary tabular-nums"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-      >
-        {String(count).padStart(3, "0")}
-      </motion.div>
-
-      {/* Progress bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-stroke/50">
-        <motion.div
-          className="h-full accent-gradient"
-          style={{
-            scaleX: count / 100,
-            boxShadow: "0 0 8px rgba(137, 170, 204, 0.35)",
-            transformOrigin: "left",
-          }}
-          transition={{ duration: 0.05 }}
-        />
-      </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
