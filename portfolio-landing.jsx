@@ -318,7 +318,8 @@ function Hero() {
   // Set local background video
   if (videoRef.current) {
     videoRef.current.src = "/videos/background.mp4";
-    videoRef.current.playbackRate = 0.8;
+    videoRef.current.playbackRate = 0.55; // Slower video speed
+    videoRef.current.loop = false; // Disable loop programmatically
   }
 }, []);
 
@@ -358,7 +359,6 @@ function Hero() {
           ref={videoRef}
           autoPlay
           muted
-          loop
           playsInline
           className="absolute inset-0 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full hero-video"
           style={{ left: "50%", top: "50%" }}
@@ -746,14 +746,28 @@ function Contact() {
         
         {/* Contact Links */}
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-          <motion.a
-            href="mailto:yazankh.95@gmail.com?subject=Contact%20from%20Portfolio&body=Hi%20Yazan%2C%0A%0AI%20visited%20your%20portfolio%20and%20would%20like%20to%20get%20in%20touch.%0A%0A"
+          <motion.button
+            onClick={() => {
+              const email = "yazankh.95@gmail.com";
+              const subject = "Contact from Portfolio";
+              const body = "Hi Yazan,\n\nI visited your portfolio and would like to get in touch.";
+              const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+              
+              // Copy to clipboard fallback first
+              navigator.clipboard.writeText(email).catch(() => {});
+              
+              // Open mailto client safely
+              window.open(mailtoUrl, '_self');
+              
+              // Notify user via friendly browser alert that email address was copied
+              alert("Email address (yazankh.95@gmail.com) has been copied to your clipboard & mail client opened!");
+            }}
             className="rounded-full text-sm px-6 py-4 bg-text-primary text-bg font-semibold flex items-center justify-center gap-2 hover:scale-105 transition-transform"
             whileHover={{ scale: 1.05 }}
           >
             <Mail size={16} />
             <span>yazankh.95@gmail.com</span>
-          </motion.a>
+          </motion.button>
           
           <motion.a
             href="https://wa.me/966534782775"
