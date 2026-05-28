@@ -362,13 +362,13 @@ function Hero() {
       />
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-black/20" />
 
       {/* Bottom Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 bg-black/80 p-6 rounded flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 md:px-10 lg:px-12 bg-black/50 backdrop-blur-sm p-6 sm:p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
         {/* Left Column - Hero Text */}
         <div className="flex-1 text-center md:text-left">
           {/* Eyebrow */}
@@ -382,7 +382,7 @@ function Hero() {
 
           {/* Name */}
           <motion.h1
-            className="name-reveal text-5xl md:text-7xl lg:text-8xl font-display italic leading-[1.1] tracking-tight text-text-primary mb-6"
+            className="name-reveal text-4xl md:text-5xl lg:text-6xl font-body font-medium leading-[1.1] tracking-tight text-text-primary mb-5"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
           >
@@ -397,7 +397,7 @@ function Hero() {
 
           {/* Description */}
           <motion.p
-            className="blur-in text-sm md:text-base text-muted max-w-xl mb-8 leading-relaxed"
+            className="blur-in text-sm md:text-base text-muted max-w-lg mb-8 leading-relaxed"
             initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           >
@@ -436,7 +436,7 @@ function Hero() {
 
         {/* Right Column - Founder Profile Image */}
         <motion.div 
-          className="w-48 h-64 sm:w-64 sm:h-80 md:w-80 md:h-[420px] rounded-3xl overflow-hidden bg-surface/30 backdrop-blur-md border border-white/10 p-3 flex-shrink-0"
+          className="w-40 h-56 sm:w-56 sm:h-72 md:w-64 md:h-[360px] rounded-3xl overflow-hidden bg-surface/30 backdrop-blur-md border border-white/10 p-2 sm:p-3 flex-shrink-0"
           initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
@@ -471,7 +471,7 @@ function Hero() {
 // ============================================================================
 function SelectedWorks({ onSelectProject }) {
   return (
-    <section id="work" className="bg-bg py-16 md:py-24">
+    <section id="work" className="bg-grid py-16 md:py-24">
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         {/* Header */}
         <motion.div
@@ -581,7 +581,7 @@ function Skills() {
   ];
 
   return (
-    <section id="skills" className="bg-bg py-16 md:py-24">
+    <section id="skills" className="bg-grid py-16 md:py-24">
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         {/* Header */}
         <motion.div
@@ -652,7 +652,7 @@ function Stats() {
   ];
 
   return (
-    <section className="bg-bg py-16 md:py-24">
+    <section className="bg-grid py-16 md:py-24">
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {stats.map((stat, idx) => (
@@ -687,24 +687,7 @@ function Stats() {
 // CONTACT & FOOTER
 // ============================================================================
 function Contact() {
-  const videoRef = useRef(null);
   const marqueeRef = useRef(null);
-
-  useEffect(() => {
-    // Setup HLS video
-    if (videoRef.current) {
-      const videoUrl =
-        "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
-
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(videoUrl);
-        hls.attachMedia(videoRef.current);
-      } else if (videoRef.current.canPlayType("application/vnd.apple.mpegurl")) {
-        videoRef.current.src = videoUrl;
-      }
-    }
-  }, []);
 
   useEffect(() => {
     // GSAP Marquee animation
@@ -719,22 +702,12 @@ function Contact() {
   }, []);
 
   return (
-    <section id="contact" className="relative min-h-[70vh] w-full overflow-hidden flex flex-col items-center justify-center pt-20 pb-12">
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ transform: "scaleY(-1)" }}
-      />
-
+    <section id="contact" className="bg-grid relative min-h-[70vh] w-full overflow-hidden flex flex-col items-center justify-center pt-20 pb-12">
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/90" />
+      <div className="absolute inset-0 bg-black/40" />
 
       {/* Marquee */}
-      <div className="relative z-10 w-full overflow-hidden mb-16 border-y border-stroke/40 py-6 bg-bg/20">
+      <div className="relative z-10 w-full overflow-hidden mb-16 border-y border-stroke/40 py-6 bg-black/30 backdrop-blur-sm">
         <div
           ref={marqueeRef}
           className="flex whitespace-nowrap text-3xl md:text-5xl font-display italic text-text-primary"

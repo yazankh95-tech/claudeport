@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        display: ['Instrument Serif', 'serif'],
+        body: ['Montserrat', 'sans-serif'],
+        display: ['Playfair Display', 'serif'],
       },
       colors: {
         bg: 'hsl(var(--bg))',
