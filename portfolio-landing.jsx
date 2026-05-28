@@ -368,7 +368,7 @@ function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 md:px-10 lg:px-12 bg-black/50 backdrop-blur-sm p-5 sm:p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 md:px-10 lg:px-12 bg-black/35 p-5 sm:p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10">
         {/* Left Column - Hero Text */}
         <div className="flex-1 text-center md:text-left">
           {/* Eyebrow */}
