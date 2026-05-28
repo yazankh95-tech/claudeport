@@ -5,6 +5,8 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Hls from "hls.js";
 import { X, ArrowLeft, ArrowRight, Mail, MessageSquare, MapPin } from "lucide-react";
 
+import AnimatedShaderBackground from "./components/ui/animated-shader-hero";
+
 gsap.registerPlugin(ScrollTrigger);
 
 // ============================================================================
@@ -397,89 +399,184 @@ function Hero() {
         </motion.div>
       </section>
 
-      {/* 2. Biography & Intro Section (Below the Video) */}
-      <section id="bio" className="bg-bg py-16 md:py-24 border-t border-stroke/20">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 flex flex-col items-center justify-center gap-8 text-center">
-          {/* Founder Profile Image */}
-          <motion.div 
-            className="w-36 h-48 sm:w-48 sm:h-64 rounded-2xl overflow-hidden bg-surface/50 p-1.5 flex-shrink-0 border border-stroke"
-            initial={{ opacity: 0, scale: 0.9 }}
+      {/* 2. Biography & Intro Section (Below the Video) — with Shader Background */}
+      <section id="bio" className="relative py-28 md:py-40 overflow-hidden border-t border-stroke/10">
+        {/* Shader Canvas Background */}
+        <div className="absolute inset-0 z-0">
+          <AnimatedShaderBackground />
+        </div>
+
+        {/* Subtle vignette overlay for depth */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-transparent to-black/60 pointer-events-none" />
+        <div className="absolute inset-0 z-[1] bg-radial-vignette pointer-events-none" />
+
+        {/* Decorative horizontal rule top */}
+        <motion.div
+          className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d8d2c4]/30 to-transparent z-[2]"
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
+        />
+
+        {/* Main content — above shader */}
+        <div className="relative z-[3] max-w-4xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 flex flex-col items-center justify-center gap-10 text-center">
+
+          {/* Corner accent lines */}
+          <motion.div
+            className="absolute top-8 left-8 w-8 h-8 border-t border-l border-[#d8d2c4]/25"
+            initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          />
+          <motion.div
+            className="absolute top-8 right-8 w-8 h-8 border-t border-r border-[#d8d2c4]/25"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          />
+
+          {/* Eyebrow label */}
+          <motion.div
+            className="flex items-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
           >
-            <img
-              src="/Personal Image/founder.jpeg"
-              alt="Yazan Alkhawandi"
-              className="w-full h-full object-cover rounded-xl border border-stroke shadow-md"
-            />
+            <div className="h-px w-10 bg-gradient-to-r from-transparent to-[#d8d2c4]/60" />
+            <span className="text-[10px] text-[#d8d2c4]/80 font-semibold uppercase tracking-[0.45em]">
+              YK DESIGN GROUP
+            </span>
+            <div className="h-px w-10 bg-gradient-to-l from-transparent to-[#d8d2c4]/60" />
           </motion.div>
 
-          {/* Hero Text */}
-          <div className="w-full">
-            {/* Eyebrow */}
-            <motion.div
-              className="text-xs text-[#d8d2c4] font-semibold uppercase tracking-[0.4em] mb-3"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              YK DESIGN GROUP
-            </motion.div>
+          {/* Founder Profile Image — now with premium glow ring */}
+          <motion.div
+            className="relative flex-shrink-0"
+            initial={{ opacity: 0, y: 30, scale: 0.92 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            {/* Glow ring behind image */}
+            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-b from-[#d8d2c4]/10 to-[#8a8273]/10 blur-xl opacity-70 pointer-events-none" />
+            <div className="relative w-36 h-48 sm:w-52 sm:h-72 rounded-2xl overflow-hidden border border-[#d8d2c4]/20 shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
+              <img
+                src="/Personal Image/founder.jpeg"
+                alt="Yazan Alkhawandi"
+                className="w-full h-full object-cover scale-[1.02] hover:scale-105 transition-transform duration-700"
+              />
+              {/* Subtle inner vignette on image */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 pointer-events-none" />
+            </div>
+          </motion.div>
 
-            {/* Name */}
+          {/* Name — cinematic reveal */}
+          <div className="overflow-hidden">
             <motion.h1
-              className="text-3xl md:text-5xl lg:text-6xl font-display italic leading-[1.1] tracking-wide text-text-primary mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-display italic leading-[1.05] tracking-wide text-text-primary"
+              initial={{ y: "100%", opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
             >
               Yazan Alkhawandi
             </motion.h1>
-
-            {/* Role Line */}
-            <p className="text-base md:text-xl text-text-primary/95 mb-4 font-normal tracking-wide">
-              An Architect based in Riyadh.
-            </p>
-
-            {/* Description */}
-            <motion.p
-              className="text-sm md:text-base text-muted max-w-xl mx-auto mb-8 leading-relaxed font-light"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              Crafting quiet, material-led interiors and residences. Working fluently across AutoCAD, Revit, SketchUp and Lumion — blending traditional drafting with AI-assisted design to compose spaces that feel both inevitable and human.
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              className="flex flex-row gap-3 justify-center w-full max-w-sm mx-auto"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <motion.button
-                onClick={() => handleScrollTo("work")}
-                className="rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 bg-[#d8d2c4] text-bg font-semibold hover:scale-105 transition-transform flex-1 text-center border border-[#d8d2c4]/35 shadow-[0_0_15px_rgba(216,210,196,0.15)]"
-                whileHover={{ scale: 1.05 }}
-              >
-                Explore Work
-              </motion.button>
-              <motion.button
-                onClick={() => handleScrollTo("contact")}
-                className="relative rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 border border-[#d8d2c4]/45 bg-transparent text-[#d8d2c4] font-semibold hover:scale-105 transition-all flex-1 text-center"
-                whileHover={{ scale: 1.05 }}
-              >
-                Contact Me ↗
-              </motion.button>
-            </motion.div>
           </div>
+
+          {/* Role tagline with animated underline */}
+          <motion.div
+            className="flex flex-col items-center gap-2"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <p className="text-base md:text-xl text-[#d8d2c4]/90 font-light tracking-[0.15em] uppercase">
+              Architect & Interior Designer
+            </p>
+            <motion.div
+              className="h-px bg-gradient-to-r from-transparent via-[#d8d2c4]/50 to-transparent"
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
+              style={{ minWidth: "120px" }}
+            />
+          </motion.div>
+
+          {/* Description — staggered word reveal feel */}
+          <motion.p
+            className="text-sm md:text-base text-white/50 max-w-2xl mx-auto leading-[2] font-light tracking-wide"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.3 }}
+          >
+            Crafting quiet, material-led interiors and residences across Riyadh and beyond.
+            Working fluently across AutoCAD, Revit, SketchUp and Lumion — blending
+            traditional drafting with AI-assisted design to compose spaces that feel
+            both inevitable and human.
+          </motion.p>
+
+          {/* Stats strip — inline in bio */}
+          <motion.div
+            className="flex items-center gap-8 md:gap-16 py-6 px-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.35 }}
+          >
+            {[
+              { num: "6+", label: "Years" },
+              { num: "50+", label: "Projects" },
+              { num: "100%", label: "Satisfaction" }
+            ].map((s, i) => (
+              <div key={i} className="flex flex-col items-center gap-1">
+                <span className="text-2xl md:text-3xl font-display italic text-[#d8d2c4]">{s.num}</span>
+                <span className="text-[9px] text-white/40 uppercase tracking-[0.3em]">{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            className="flex flex-row gap-4 justify-center w-full max-w-sm mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+          >
+            <motion.button
+              onClick={() => handleScrollTo("work")}
+              className="rounded-full text-xs sm:text-sm px-5 py-3 sm:px-8 sm:py-4 bg-[#d8d2c4] text-bg font-semibold flex-1 text-center shadow-[0_0_25px_rgba(216,210,196,0.2)] hover:shadow-[0_0_35px_rgba(216,210,196,0.35)] transition-shadow duration-300"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Explore Work
+            </motion.button>
+            <motion.button
+              onClick={() => handleScrollTo("contact")}
+              className="rounded-full text-xs sm:text-sm px-5 py-3 sm:px-8 sm:py-4 border border-[#d8d2c4]/30 bg-white/[0.04] text-[#d8d2c4] font-semibold flex-1 text-center backdrop-blur-sm hover:border-[#d8d2c4]/60 transition-colors duration-300"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Contact Me ↗
+            </motion.button>
+          </motion.div>
         </div>
+
+        {/* Decorative horizontal rule bottom */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d8d2c4]/20 to-transparent z-[2]"
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.4, ease: "easeOut", delay: 0.2 }}
+        />
       </section>
     </div>
   );
@@ -1087,6 +1184,10 @@ export default function App() {
           animation: gradient-shift 6s ease infinite;
         }
 
+        .bg-radial-vignette {
+          background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
+        }
+
         html {
           scroll-behavior: smooth;
         }
@@ -1189,7 +1290,6 @@ export default function App() {
       <Hero />
       <SelectedWorks onSelectProject={(project) => setSelectedProject(project)} />
       <Skills />
-      <Stats />
       <Contact />
 
       <AnimatePresence>
