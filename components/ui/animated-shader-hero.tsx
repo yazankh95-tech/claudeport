@@ -4,11 +4,16 @@ interface AnimatedShaderProps {
   className?: string;
 }
 
+const TARGET_FPS = 24;
+const FRAME_INTERVAL = 1000 / TARGET_FPS;
+
 const useShaderBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
   const rendererRef = useRef<WebGLRenderer | null>(null);
   const pointersRef = useRef<PointerHandler | null>(null);
+  const lastFrameTimeRef = useRef<number>(0);
+  const isVisibleRef = useRef<boolean>(true);
 
   class WebGLRenderer {
     private canvas: HTMLCanvasElement;
@@ -237,10 +242,11 @@ void main(){gl_Position=position;}`;
     if (!canvasRef.current) return;
     
     const canvas = canvasRef.current;
-    const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
+    // Cap DPR at 0.4x for performance — still looks great
+    const dpr = Math.min(0.4 * window.devicePixelRatio, 0.8);
     
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
+    canvas.width = canvas.offsetWidth * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
     
     if (rendererRef.current) {
       rendererRef.current.updateScale(dpr);
@@ -249,6 +255,20 @@ void main(){gl_Position=position;}`;
 
   const loop = (now: number) => {
     if (!rendererRef.current || !pointersRef.current) return;
+    
+    // Skip frame if not visible (tab hidden or section off screen)
+    if (!isVisibleRef.current || document.hidden) {
+      animationFrameRef.current = requestAnimationFrame(loop);
+      return;
+    }
+
+    // Throttle to TARGET_FPS
+    const delta = now - lastFrameTimeRef.current;
+    if (delta < FRAME_INTERVAL) {
+      animationFrameRef.current = requestAnimationFrame(loop);
+      return;
+    }
+    lastFrameTimeRef.current = now - (delta % FRAME_INTERVAL);
     
     rendererRef.current.updateMouse(pointersRef.current.first);
     rendererRef.current.updatePointerCount(pointersRef.current.count);
@@ -262,7 +282,7 @@ void main(){gl_Position=position;}`;
     if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
+    const dpr = Math.min(0.4 * window.devicePixelRatio, 0.8);
     
     rendererRef.current = new WebGLRenderer(canvas, dpr);
     pointersRef.current = new PointerHandler(canvas, dpr);
@@ -278,10 +298,26 @@ void main(){gl_Position=position;}`;
     
     loop(0);
     
-    window.addEventListener('resize', resize);
+    // Pause rendering when section is not visible
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+      { threshold: 0.01 }
+    );
+    observer.observe(canvas);
+
+    // Pause when tab is hidden
+    const handleVisibility = () => {
+      isVisibleRef.current = !document.hidden;
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    
+    const handleResize = () => { requestAnimationFrame(resize); };
+    window.addEventListener('resize', handleResize);
     
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      observer.disconnect();
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

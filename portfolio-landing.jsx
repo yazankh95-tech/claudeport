@@ -379,7 +379,7 @@ function Hero() {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full hero-video"
-          style={{ left: "50%", top: "50%" }}
+          style={{ left: "50%", top: "50%", willChange: "transform" }}
         />
 
         {/* Subtle Dark Gradient Overlay only at bottom to blend with background */}
@@ -524,7 +524,7 @@ function Hero() {
 
           {/* Stats strip — inline in bio */}
           <motion.div
-            className="flex items-center gap-8 md:gap-16 py-6 px-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm"
+            className="flex items-center gap-8 md:gap-16 py-6 px-8 rounded-2xl bg-white/[0.04] border border-white/[0.07]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -560,7 +560,7 @@ function Hero() {
             </motion.button>
             <motion.button
               onClick={() => handleScrollTo("contact")}
-              className="rounded-full text-xs sm:text-sm px-5 py-3 sm:px-8 sm:py-4 border border-[#d8d2c4]/30 bg-white/[0.04] text-[#d8d2c4] font-semibold flex-1 text-center backdrop-blur-sm hover:border-[#d8d2c4]/60 transition-colors duration-300"
+              className="rounded-full text-xs sm:text-sm px-5 py-3 sm:px-8 sm:py-4 border border-[#d8d2c4]/30 bg-white/[0.04] text-[#d8d2c4] font-semibold flex-1 text-center hover:border-[#d8d2c4]/60 transition-colors duration-300"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -646,6 +646,8 @@ function SelectedWorks({ onSelectProject }) {
                 <img
                   src={project.img}
                   alt={project.title}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
 
@@ -679,37 +681,20 @@ function SelectedWorks({ onSelectProject }) {
                   </p>
                 </div>
 
-                {/* Hover Overlay */}
+                {/* Hover Overlay — no backdrop-blur for GPU perf */}
                 <motion.div
-                  className="absolute inset-0 bg-bg/85 backdrop-blur-md hidden md:flex flex-col items-center justify-center p-6 text-center z-20"
+                  className="absolute inset-0 bg-[#050505]/88 hidden md:flex flex-col items-center justify-center p-6 text-center z-20"
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.25 }}
                 >
-                  <motion.h3 
-                    className="text-2xl font-display italic text-text-primary mb-2"
-                    initial={{ y: 15, opacity: 0 }}
-                    whileHover={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.05 }}
-                  >
+                  <h3 className="text-2xl font-display italic text-text-primary mb-2">
                     {project.title}
-                  </motion.h3>
-                  <motion.p
-                    className="text-xs text-muted mb-6"
-                    initial={{ y: 15, opacity: 0 }}
-                    whileHover={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                  >
-                    {project.desc}
-                  </motion.p>
-                  <motion.div
-                    className="relative rounded-full bg-text-primary text-bg px-6 py-2.5 text-xs font-medium flex items-center gap-2"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    whileHover={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
+                  </h3>
+                  <p className="text-xs text-muted mb-6">{project.desc}</p>
+                  <div className="rounded-full bg-text-primary text-bg px-6 py-2.5 text-xs font-medium flex items-center gap-2">
                     View Gallery ({project.images.length} images) — ↗
-                  </motion.div>
+                  </div>
                 </motion.div>
               </motion.div>
             );
@@ -1079,7 +1064,7 @@ export default function App() {
   return (
     <div className="bg-bg/10 text-text-primary min-h-screen scroll-smooth overflow-x-hidden">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap&subset=latin');
 
         :root {
           --bg: 0 0% 2%;
