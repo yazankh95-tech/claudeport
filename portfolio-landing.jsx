@@ -350,114 +350,122 @@ function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen w-full overflow-hidden flex items-center justify-center pt-20 pb-12 md:pt-24 md:pb-16">
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full hero-video"
-        style={{ left: "50%", top: "50%" }}
-      />
+    <div className="w-full">
+      {/* 1. Full Screen Entry Video Section */}
+      <section id="home" className="relative h-[85vh] sm:h-screen w-full overflow-hidden flex items-center justify-center">
+        {/* Background Video */}
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full hero-video"
+          style={{ left: "50%", top: "50%" }}
+        />
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/20" />
+        {/* Subtle Dark Gradient Overlay only at bottom to blend with background */}
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-black/10" />
 
-      {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg to-transparent" />
-
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-8 md:px-10 lg:px-12 bg-white/80 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-black/10 shadow-2xl flex flex-col items-center justify-center gap-6 text-center">
-        {/* Top Column - Founder Profile Image */}
-        <motion.div 
-          className="w-32 h-44 sm:w-44 sm:h-56 rounded-2xl overflow-hidden bg-black/5 p-1.5 flex-shrink-0"
-          initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-          whileHover={{ scale: 1.03, rotate: -1 }}
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 cursor-pointer z-10"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          onClick={() => handleScrollTo("bio")}
         >
-          <img
-            src="/Personal Image/founder.jpeg"
-            alt="Yazan Alkhawandi"
-            className="w-full h-full object-cover rounded-xl border border-black/5 shadow-md"
-          />
+          <span className="text-xs text-white/80 uppercase tracking-[0.2em]">
+            ENTER PORTFOLIO
+          </span>
+          <div className="w-px h-10 bg-white/50" />
         </motion.div>
+      </section>
 
-        {/* Bottom Column - Hero Text */}
-        <div className="flex-1 w-full">
-          {/* Eyebrow */}
-          <motion.div
-            className="blur-in text-xs text-black/60 uppercase tracking-[0.3em] mb-3 md:mb-4"
-            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      {/* 2. Biography & Intro Section (Below the Video) */}
+      <section id="bio" className="bg-bg py-16 md:py-24 border-t border-stroke/20">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 flex flex-col items-center justify-center gap-8 text-center">
+          {/* Founder Profile Image */}
+          <motion.div 
+            className="w-36 h-48 sm:w-48 sm:h-64 rounded-2xl overflow-hidden bg-surface/50 p-1.5 flex-shrink-0 border border-stroke"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            whileHover={{ scale: 1.03 }}
           >
-            YK DESIGN GROUP
+            <img
+              src="/Personal Image/founder.jpeg"
+              alt="Yazan Alkhawandi"
+              className="w-full h-full object-cover rounded-xl border border-stroke shadow-md"
+            />
           </motion.div>
 
-          {/* Name */}
-          <motion.h1
-            className="name-reveal text-3xl md:text-5xl lg:text-6xl font-body font-medium leading-[1.1] tracking-tight text-black mb-4 md:mb-5"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            Yazan Alkhawandi
-          </motion.h1>
-
-          {/* Role Line */}
-          <p className="blur-in text-base md:text-xl text-black mb-4 md:mb-6 font-medium">
-            An Architect based in Riyadh.
-          </p>
-
-          {/* Description */}
-          <motion.p
-            className="blur-in text-xs md:text-base text-black/70 max-w-lg mx-auto mb-6 md:mb-8 leading-relaxed font-normal"
-            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-          >
-            Crafting quiet, material-led interiors and residences. Working fluently across AutoCAD, Revit, SketchUp and Lumion — blending traditional drafting with AI-assisted design to compose spaces that feel both inevitable and human.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            className="blur-in flex flex-row gap-3 justify-center w-full max-w-md mx-auto"
-            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-          >
-            <motion.button
-              onClick={() => handleScrollTo("work")}
-              className="rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 bg-black text-white font-medium hover:scale-105 transition-transform flex-1 text-center"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
-              }}
+          {/* Hero Text */}
+          <div className="w-full">
+            {/* Eyebrow */}
+            <motion.div
+              className="text-xs text-muted uppercase tracking-[0.3em] mb-3"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             >
-              Explore Work
-            </motion.button>
-            <motion.button
-              onClick={() => handleScrollTo("contact")}
-              className="relative rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 border-2 border-black/20 bg-transparent text-black font-medium hover:scale-105 transition-all group overflow-hidden flex-1 text-center"
-              whileHover={{ scale: 1.05 }}
+              YK DESIGN GROUP
+            </motion.div>
+
+            {/* Name */}
+            <motion.h1
+              className="text-3xl md:text-5xl lg:text-6xl font-body font-medium leading-[1.1] tracking-tight text-text-primary mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
             >
-              Contact Me ↗
-            </motion.button>
-          </motion.div>
+              Yazan Alkhawandi
+            </motion.h1>
+
+            {/* Role Line */}
+            <p className="text-base md:text-xl text-text-primary/90 mb-4 font-medium">
+              An Architect based in Riyadh.
+            </p>
+
+            {/* Description */}
+            <motion.p
+              className="text-sm md:text-base text-muted max-w-xl mx-auto mb-8 leading-relaxed font-normal"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              Crafting quiet, material-led interiors and residences. Working fluently across AutoCAD, Revit, SketchUp and Lumion — blending traditional drafting with AI-assisted design to compose spaces that feel both inevitable and human.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              className="flex flex-row gap-3 justify-center w-full max-w-sm mx-auto"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <motion.button
+                onClick={() => handleScrollTo("work")}
+                className="rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 bg-text-primary text-bg font-medium hover:scale-105 transition-transform flex-1 text-center"
+                whileHover={{ scale: 1.05 }}
+              >
+                Explore Work
+              </motion.button>
+              <motion.button
+                onClick={() => handleScrollTo("contact")}
+                className="relative rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 border-2 border-stroke bg-transparent text-text-primary font-medium hover:scale-105 transition-all flex-1 text-center"
+                whileHover={{ scale: 1.05 }}
+              >
+                Contact Me ↗
+              </motion.button>
+            </motion.div>
+          </div>
         </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 cursor-pointer"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        onClick={() => handleScrollTo("work")}
-      >
-        <span className="text-xs text-muted uppercase tracking-[0.2em]">
-          SCROLL
-        </span>
-        <div className="w-px h-10 bg-stroke/50" />
-      </motion.div>
-    </section>
+      </section>
+    </div>
   );
 }
 
