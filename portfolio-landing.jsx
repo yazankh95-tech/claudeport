@@ -250,7 +250,7 @@ function Navbar() {
       >
         {/* Logo */}
         <motion.div
-          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#89AACC] to-[#4E85BF] p-[2px] cursor-pointer flex-shrink-0"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] p-[2px] cursor-pointer flex-shrink-0"
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.2 }}
           onClick={() => handleScrollTo("home")}
@@ -291,7 +291,7 @@ function Navbar() {
           onClick={() => handleScrollTo("contact")}
         >
           <motion.div
-            className="absolute inset-0 -inset-[2px] bg-gradient-to-r from-[#89AACC] to-[#4E85BF] rounded-full opacity-0 group-hover:opacity-100 -z-10"
+            className="absolute inset-0 -inset-[2px] bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] rounded-full opacity-0 group-hover:opacity-100 -z-10"
             variants={{
               hover: { opacity: 1 },
             }}
@@ -404,7 +404,7 @@ function Hero() {
           <div className="w-full">
             {/* Eyebrow */}
             <motion.div
-              className="text-xs text-muted uppercase tracking-[0.3em] mb-3"
+              className="text-xs text-[#d4af37] font-semibold uppercase tracking-[0.4em] mb-3"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -414,7 +414,7 @@ function Hero() {
 
             {/* Name */}
             <motion.h1
-              className="text-3xl md:text-5xl lg:text-6xl font-body font-medium leading-[1.1] tracking-tight text-text-primary mb-4"
+              className="text-3xl md:text-5xl lg:text-6xl font-display italic leading-[1.1] tracking-wide text-text-primary mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -424,13 +424,13 @@ function Hero() {
             </motion.h1>
 
             {/* Role Line */}
-            <p className="text-base md:text-xl text-text-primary/90 mb-4 font-medium">
+            <p className="text-base md:text-xl text-text-primary/95 mb-4 font-normal tracking-wide">
               An Architect based in Riyadh.
             </p>
 
             {/* Description */}
             <motion.p
-              className="text-sm md:text-base text-muted max-w-xl mx-auto mb-8 leading-relaxed font-normal"
+              className="text-sm md:text-base text-muted max-w-xl mx-auto mb-8 leading-relaxed font-light"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -449,14 +449,14 @@ function Hero() {
             >
               <motion.button
                 onClick={() => handleScrollTo("work")}
-                className="rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 bg-text-primary text-bg font-medium hover:scale-105 transition-transform flex-1 text-center"
+                className="rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 bg-[#d4af37] text-bg font-semibold hover:scale-105 transition-transform flex-1 text-center border border-[#d4af37]/35 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
                 whileHover={{ scale: 1.05 }}
               >
                 Explore Work
               </motion.button>
               <motion.button
                 onClick={() => handleScrollTo("contact")}
-                className="relative rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 border-2 border-stroke bg-transparent text-text-primary font-medium hover:scale-105 transition-all flex-1 text-center"
+                className="relative rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 border border-[#d4af37]/45 bg-transparent text-[#d4af37] font-semibold hover:scale-105 transition-all flex-1 text-center"
                 whileHover={{ scale: 1.05 }}
               >
                 Contact Me ↗
@@ -966,15 +966,15 @@ export default function App() {
   return (
     <div className="bg-bg/10 text-text-primary min-h-screen scroll-smooth overflow-x-hidden">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
 
         :root {
-          --bg: 0 0% 4%;
-          --surface: 0 0% 8%;
-          --text: 0 0% 96%;
-          --muted: 0 0% 53%;
-          --stroke: 0 0% 12%;
-          --accent: 0 0% 96%;
+          --bg: 0 0% 2%;
+          --surface: 0 0% 5%;
+          --text: 0 0% 98%;
+          --muted: 0 0% 60%;
+          --stroke: 0 0% 10%;
+          --accent-gold: 41 33% 62%; /* Luxury Gold HSL #d4af37 replacement */
         }
 
         * {
@@ -984,18 +984,19 @@ export default function App() {
         }
 
         body {
-          font-family: 'Inter', sans-serif;
+          font-family: 'Montserrat', sans-serif;
           background-color: hsl(var(--bg));
           color: hsl(var(--text));
           overflow-x: hidden;
+          letter-spacing: 0.03em;
         }
 
         .font-body {
-          font-family: 'Inter', sans-serif;
+          font-family: 'Montserrat', sans-serif;
         }
 
         .font-display {
-          font-family: 'Instrument Serif', serif;
+          font-family: 'Playfair Display', serif;
         }
 
         .bg-bg {
@@ -1019,11 +1020,11 @@ export default function App() {
         }
 
         .accent-gradient {
-          background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+          background: linear-gradient(90deg, #d4af37 0%, #aa8c2c 100%);
         }
 
         .text-gradient {
-          background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+          background: linear-gradient(90deg, #f3e5ab 0%, #d4af37 50%, #aa8c2c 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
