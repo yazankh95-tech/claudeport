@@ -177,7 +177,7 @@ function LoadingScreen({ onComplete }) {
             transition={{ duration: 0.4 }}
           >
             {/* Top-left label */}
-            <div className="absolute top-8 left-6 text-xs text-[#d4af37] font-semibold uppercase tracking-[0.4em]">
+            <div className="absolute top-8 left-6 text-xs text-[#d8d2c4] font-semibold uppercase tracking-[0.4em]">
               YK DESIGN GROUP
             </div>
 
@@ -190,7 +190,7 @@ function LoadingScreen({ onComplete }) {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -15, opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="text-4xl md:text-6xl font-display italic text-[#d4af37] tracking-wider"
+                  className="text-4xl md:text-6xl font-display italic text-[#d8d2c4] tracking-wider"
                 >
                   {rolesRef.current[roleIndex]}
                 </motion.div>
@@ -205,8 +205,8 @@ function LoadingScreen({ onComplete }) {
             {/* Micro Gold Loading line */}
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5">
               <div 
-                className="h-full bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] transition-all duration-75"
-                style={{ width: `${count}%`, boxShadow: "0 0 10px rgba(212,175,55,0.4)" }}
+                className="h-full bg-gradient-to-r from-[#d8d2c4] to-[#8a8273] transition-all duration-75"
+                style={{ width: `${count}%`, boxShadow: "0 0 10px rgba(216,210,196,0.4)" }}
               />
             </div>
           </motion.div>
@@ -266,7 +266,7 @@ function Navbar() {
       >
         {/* Logo */}
         <motion.div
-          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] p-[2px] cursor-pointer flex-shrink-0"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#d8d2c4] to-[#8a8273] p-[2px] cursor-pointer flex-shrink-0"
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.2 }}
           onClick={() => handleScrollTo("home")}
@@ -307,7 +307,7 @@ function Navbar() {
           onClick={() => handleScrollTo("contact")}
         >
           <motion.div
-            className="absolute inset-0 -inset-[2px] bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] rounded-full opacity-0 group-hover:opacity-100 -z-10"
+            className="absolute inset-0 -inset-[2px] bg-gradient-to-r from-[#d8d2c4] to-[#8a8273] rounded-full opacity-0 group-hover:opacity-100 -z-10"
             variants={{
               hover: { opacity: 1 },
             }}
@@ -420,7 +420,7 @@ function Hero() {
           <div className="w-full">
             {/* Eyebrow */}
             <motion.div
-              className="text-xs text-[#d4af37] font-semibold uppercase tracking-[0.4em] mb-3"
+              className="text-xs text-[#d8d2c4] font-semibold uppercase tracking-[0.4em] mb-3"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -465,14 +465,14 @@ function Hero() {
             >
               <motion.button
                 onClick={() => handleScrollTo("work")}
-                className="rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 bg-[#d4af37] text-bg font-semibold hover:scale-105 transition-transform flex-1 text-center border border-[#d4af37]/35 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+                className="rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 bg-[#d8d2c4] text-bg font-semibold hover:scale-105 transition-transform flex-1 text-center border border-[#d8d2c4]/35 shadow-[0_0_15px_rgba(216,210,196,0.15)]"
                 whileHover={{ scale: 1.05 }}
               >
                 Explore Work
               </motion.button>
               <motion.button
                 onClick={() => handleScrollTo("contact")}
-                className="relative rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 border border-[#d4af37]/45 bg-transparent text-[#d4af37] font-semibold hover:scale-105 transition-all flex-1 text-center"
+                className="relative rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 border border-[#d8d2c4]/45 bg-transparent text-[#d8d2c4] font-semibold hover:scale-105 transition-all flex-1 text-center"
                 whileHover={{ scale: 1.05 }}
               >
                 Contact Me ↗
@@ -990,7 +990,7 @@ export default function App() {
           --text: 0 0% 98%;
           --muted: 0 0% 60%;
           --stroke: 0 0% 10%;
-          --accent-gold: 41 33% 62%; /* Luxury Gold HSL #d4af37 replacement */
+          --accent-gold: 41 12% 81%; /* Soft Architectural Platinum-Sand HSL #d8d2c4 replacement */
         }
 
         * {
@@ -1036,11 +1036,11 @@ export default function App() {
         }
 
         .accent-gradient {
-          background: linear-gradient(90deg, #d4af37 0%, #aa8c2c 100%);
+          background: linear-gradient(90deg, #d8d2c4 0%, #8a8273 100%);
         }
 
         .text-gradient {
-          background: linear-gradient(90deg, #f3e5ab 0%, #d4af37 50%, #aa8c2c 100%);
+          background: linear-gradient(90deg, #f0ede6 0%, #d8d2c4 50%, #8a8273 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
