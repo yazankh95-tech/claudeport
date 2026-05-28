@@ -500,81 +500,107 @@ function SelectedWorks({ onSelectProject }) {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
-          {projectsData.map((project, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.25, 0.1, 0.25, 1],
-                delay: idx * 0.1,
-              }}
-              viewport={{ once: true, margin: "-50px" }}
-              className={`${project.span} group relative rounded-3xl overflow-hidden bg-surface border border-stroke aspect-[4/3] cursor-pointer`}
-              onClick={() => onSelectProject(project)}
-            >
-              {/* Background Image */}
-              <img
-                src={project.img}
-                alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
+          {projectsData.map((project, idx) => {
+            const [coords, setCoords] = useState({ x: 0, y: 0 });
+            const [isHovered, setIsHovered] = useState(false);
 
-              {/* Halftone Overlay */}
-              <div
-                className="absolute inset-0 opacity-15 mix-blend-multiply"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle, #000 1px, transparent 1px)",
-                  backgroundSize: "4px 4px",
-                }}
-              />
+            const handleMouseMove = (e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              setCoords({
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+              });
+            };
 
-              {/* Mobile Info Overlay (visible only on mobile) */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent p-5 pt-12 md:hidden flex flex-col justify-end pointer-events-none">
-                <h3 className="text-xl font-display italic text-text-primary mb-0.5">
-                  {project.title}
-                </h3>
-                <p className="text-[10px] text-muted uppercase tracking-wider">
-                  {project.desc}
-                </p>
-              </div>
-
-              {/* Hover Overlay */}
+            return (
               <motion.div
-                className="absolute inset-0 bg-bg/85 backdrop-blur-md hidden md:flex flex-col items-center justify-center p-6 text-center"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
+                key={idx}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.25, 0.1, 0.25, 1],
+                  delay: idx * 0.1,
+                }}
+                viewport={{ once: true, margin: "-50px" }}
+                className={`${project.span} group relative rounded-3xl overflow-hidden bg-surface border border-stroke aspect-[4/3] cursor-pointer`}
+                onClick={() => onSelectProject(project)}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
               >
-                <motion.h3 
-                  className="text-2xl font-display italic text-text-primary mb-2"
-                  initial={{ y: 15, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.05 }}
-                >
-                  {project.title}
-                </motion.h3>
-                <motion.p
-                  className="text-xs text-muted mb-6"
-                  initial={{ y: 15, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                >
-                  {project.desc}
-                </motion.p>
+                {/* Background Image */}
+                <img
+                  src={project.img}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+
+                {/* Halftone Overlay */}
+                <div
+                  className="absolute inset-0 opacity-15 mix-blend-multiply"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle, #000 1px, transparent 1px)",
+                    backgroundSize: "4px 4px",
+                  }}
+                />
+
+                {/* Dynamic Spotlight Effect on Hover */}
+                {isHovered && (
+                  <div
+                    className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-10"
+                    style={{
+                      background: `radial-gradient(400px circle at ${coords.x}px ${coords.y}px, rgba(255,255,255,0.06), transparent 80%)`
+                    }}
+                  />
+                )}
+
+                {/* Mobile Info Overlay (visible only on mobile) */}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent p-5 pt-12 md:hidden flex flex-col justify-end pointer-events-none">
+                  <h3 className="text-xl font-display italic text-text-primary mb-0.5">
+                    {project.title}
+                  </h3>
+                  <p className="text-[10px] text-muted uppercase tracking-wider">
+                    {project.desc}
+                  </p>
+                </div>
+
+                {/* Hover Overlay */}
                 <motion.div
-                  className="relative rounded-full bg-text-primary text-bg px-6 py-2.5 text-xs font-medium flex items-center gap-2"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileHover={{ scale: 1, opacity: 1 }}
+                  className="absolute inset-0 bg-bg/85 backdrop-blur-md hidden md:flex flex-col items-center justify-center p-6 text-center z-20"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  View Gallery ({project.images.length} images) — ↗
+                  <motion.h3 
+                    className="text-2xl font-display italic text-text-primary mb-2"
+                    initial={{ y: 15, opacity: 0 }}
+                    whileHover={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.05 }}
+                  >
+                    {project.title}
+                  </motion.h3>
+                  <motion.p
+                    className="text-xs text-muted mb-6"
+                    initial={{ y: 15, opacity: 0 }}
+                    whileHover={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                  >
+                    {project.desc}
+                  </motion.p>
+                  <motion.div
+                    className="relative rounded-full bg-text-primary text-bg px-6 py-2.5 text-xs font-medium flex items-center gap-2"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileHover={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    View Gallery ({project.images.length} images) — ↗
+                  </motion.div>
                 </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
