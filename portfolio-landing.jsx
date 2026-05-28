@@ -242,33 +242,33 @@ function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 md:pt-6 px-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-3 sm:pt-4 md:pt-6 px-3 sm:px-4">
       <div
-        className={`inline-flex items-center rounded-full backdrop-blur-md border border-white/10 bg-surface px-2 py-2 transition-shadow duration-300 ${
+        className={`inline-flex items-center rounded-full backdrop-blur-md border border-white/10 bg-surface px-1.5 py-1.5 sm:px-2 sm:py-2 transition-shadow duration-300 ${
           scrollY > 100 ? "shadow-md shadow-black/20" : ""
         }`}
       >
         {/* Logo */}
         <motion.div
-          className="w-9 h-9 rounded-full bg-gradient-to-r from-[#89AACC] to-[#4E85BF] p-[2px] cursor-pointer flex-shrink-0"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#89AACC] to-[#4E85BF] p-[2px] cursor-pointer flex-shrink-0"
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.2 }}
           onClick={() => handleScrollTo("home")}
         >
           <div className="w-full h-full rounded-full bg-bg flex items-center justify-center">
-            <span className="font-display italic text-[13px] font-bold text-text-primary">YK</span>
+            <span className="font-display italic text-[11px] sm:text-[13px] font-bold text-text-primary">YK</span>
           </div>
         </motion.div>
 
         {/* Divider */}
-        <div className="w-px h-5 bg-stroke mx-2 hidden md:block" />
+        <div className="w-px h-5 bg-stroke mx-1.5 sm:mx-2 hidden md:block" />
 
         {/* Nav Links */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5 sm:gap-1">
           {navLinks.map((link) => (
             <motion.button
               key={link.id}
-              className={`text-xs sm:text-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors ${
+              className={`text-[10px] sm:text-xs md:text-sm rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 transition-colors ${
                 activeNav === link.id
                   ? "text-text-primary bg-stroke/50"
                   : "text-muted hover:text-text-primary hover:bg-stroke/50"
@@ -282,11 +282,11 @@ function Navbar() {
         </div>
 
         {/* Divider */}
-        <div className="w-px h-5 bg-stroke mx-2" />
+        <div className="w-px h-5 bg-stroke mx-1.5 sm:mx-2 hidden sm:block" />
 
         {/* Say Hi Button */}
         <motion.button
-          className="relative text-xs sm:text-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-text-primary overflow-hidden group"
+          className="relative text-xs sm:text-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-text-primary overflow-hidden group hidden sm:block"
           whileHover="hover"
           onClick={() => handleScrollTo("contact")}
         >
@@ -350,7 +350,7 @@ function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen w-full overflow-hidden flex items-center justify-center pt-24 pb-16">
+    <section id="home" className="relative min-h-screen w-full overflow-hidden flex items-center justify-center pt-20 pb-12 md:pt-24 md:pb-16">
       {/* Background Video */}
       <video
         ref={videoRef}
@@ -368,12 +368,12 @@ function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 md:px-10 lg:px-12 bg-black/50 backdrop-blur-sm p-6 sm:p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 md:px-10 lg:px-12 bg-black/50 backdrop-blur-sm p-5 sm:p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10">
         {/* Left Column - Hero Text */}
         <div className="flex-1 text-center md:text-left">
           {/* Eyebrow */}
           <motion.div
-            className="blur-in text-xs text-muted uppercase tracking-[0.3em] mb-4"
+            className="blur-in text-xs text-muted uppercase tracking-[0.3em] mb-3 md:mb-4"
             initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           >
@@ -382,7 +382,7 @@ function Hero() {
 
           {/* Name */}
           <motion.h1
-            className="name-reveal text-4xl md:text-5xl lg:text-6xl font-body font-medium leading-[1.1] tracking-tight text-text-primary mb-5"
+            className="name-reveal text-3xl md:text-5xl lg:text-6xl font-body font-medium leading-[1.1] tracking-tight text-text-primary mb-4 md:mb-5"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
           >
@@ -390,14 +390,13 @@ function Hero() {
           </motion.h1>
 
           {/* Role Line */}
-          {/* Role Line */}
-          <p className="blur-in text-lg md:text-xl text-text-primary mb-6">
+          <p className="blur-in text-base md:text-xl text-text-primary mb-4 md:mb-6">
             An Architect based in Riyadh.
           </p>
 
           {/* Description */}
           <motion.p
-            className="blur-in text-sm md:text-base text-muted max-w-lg mb-8 leading-relaxed"
+            className="blur-in text-xs md:text-base text-muted max-w-lg mb-6 md:mb-8 leading-relaxed"
             initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           >
@@ -406,23 +405,23 @@ function Hero() {
 
           {/* CTA Buttons */}
           <motion.div
-            className="blur-in flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+            className="blur-in flex flex-row gap-3 justify-center md:justify-start w-full"
             initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           >
             <motion.button
               onClick={() => handleScrollTo("work")}
-              className="rounded-full text-sm px-8 py-4 bg-text-primary text-bg font-medium hover:scale-105 transition-transform"
+              className="rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 bg-text-primary text-bg font-medium hover:scale-105 transition-transform flex-1 sm:flex-initial text-center"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 20px rgba(137, 170, 204, 0.3)",
               }}
             >
-              Explore My Work
+              Explore Work
             </motion.button>
             <motion.button
               onClick={() => handleScrollTo("contact")}
-              className="relative rounded-full text-sm px-8 py-4 border-2 border-stroke bg-bg/40 backdrop-blur-sm text-text-primary font-medium hover:scale-105 transition-all group overflow-hidden"
+              className="relative rounded-full text-xs sm:text-sm px-4 py-3 sm:px-8 sm:py-4 border-2 border-stroke bg-bg/40 backdrop-blur-sm text-text-primary font-medium hover:scale-105 transition-all group overflow-hidden flex-1 sm:flex-initial text-center"
               whileHover={{ scale: 1.05 }}
             >
               <motion.div
@@ -436,7 +435,7 @@ function Hero() {
 
         {/* Right Column - Founder Profile Image */}
         <motion.div 
-          className="w-40 h-56 sm:w-56 sm:h-72 md:w-64 md:h-[360px] rounded-3xl overflow-hidden bg-surface/30 backdrop-blur-md border border-white/10 p-2 sm:p-3 flex-shrink-0"
+          className="w-36 h-48 sm:w-56 sm:h-72 md:w-64 md:h-[360px] rounded-3xl overflow-hidden bg-surface/30 backdrop-blur-md border border-white/10 p-2 flex-shrink-0"
           initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
@@ -528,9 +527,19 @@ function SelectedWorks({ onSelectProject }) {
                 }}
               />
 
+              {/* Mobile Info Overlay (visible only on mobile) */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent p-5 pt-12 md:hidden flex flex-col justify-end pointer-events-none">
+                <h3 className="text-xl font-display italic text-text-primary mb-0.5">
+                  {project.title}
+                </h3>
+                <p className="text-[10px] text-muted uppercase tracking-wider">
+                  {project.desc}
+                </p>
+              </div>
+
               {/* Hover Overlay */}
               <motion.div
-                className="absolute inset-0 bg-bg/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center"
+                className="absolute inset-0 bg-bg/85 backdrop-blur-md hidden md:flex flex-col items-center justify-center p-6 text-center"
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
@@ -606,7 +615,7 @@ function Skills() {
         </motion.div>
 
         {/* Skills Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {skills.map((skill, idx) => (
             <motion.div
               key={idx}
@@ -614,11 +623,13 @@ function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               viewport={{ once: true, margin: "-50px" }}
-              className="group bg-surface/30 hover:bg-surface/75 border border-stroke hover:border-[#89AACC]/40 rounded-3xl p-6 flex flex-col items-center text-center cursor-pointer transition-all duration-300"
+              className={`group bg-surface/30 hover:bg-surface/75 border border-stroke hover:border-[#89AACC]/40 rounded-3xl p-4 sm:p-6 flex flex-col items-center text-center cursor-pointer transition-all duration-300 ${
+                idx === 4 ? "col-span-2 sm:col-span-1" : "col-span-1"
+              }`}
               whileHover={{ y: -6 }}
             >
               {/* Skill Icon */}
-              <div className="w-16 h-16 rounded-2xl bg-bg/50 border border-stroke flex items-center justify-center p-3 mb-4 group-hover:scale-110 group-hover:border-[#89AACC]/30 transition-transform duration-300">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-bg/50 border border-stroke flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 group-hover:scale-110 group-hover:border-[#89AACC]/30 transition-transform duration-300">
                 <img
                   src={skill.icon}
                   alt={skill.name}
@@ -627,10 +638,10 @@ function Skills() {
               </div>
               
               {/* Skill Details */}
-              <h3 className="text-sm font-semibold text-text-primary mb-2 group-hover:text-text-primary tracking-wide">
+              <h3 className="text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-2 group-hover:text-text-primary tracking-wide">
                 {skill.name}
               </h3>
-              <p className="text-xs text-muted leading-relaxed">
+              <p className="text-[10px] sm:text-xs text-muted leading-relaxed">
                 {skill.desc}
               </p>
             </motion.div>
@@ -652,9 +663,9 @@ function Stats() {
   ];
 
   return (
-    <section className="bg-grid py-16 md:py-24">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section className="bg-grid py-12 md:py-24">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-10 lg:px-16">
+        <div className="grid grid-cols-3 gap-3 md:gap-8">
           {stats.map((stat, idx) => (
             <motion.div
               key={idx}
@@ -668,13 +679,13 @@ function Stats() {
               className="text-center"
             >
               <motion.div
-                className="text-5xl md:text-7xl font-display italic text-text-primary mb-2"
+                className="text-3xl sm:text-5xl md:text-7xl font-display italic text-text-primary mb-1 sm:mb-2"
                 whileInView={{ scale: 1.05 }}
                 transition={{ duration: 0.6 }}
               >
                 {stat.number}
               </motion.div>
-              <p className="text-muted text-sm tracking-wide uppercase">{stat.label}</p>
+              <p className="text-muted text-[9px] sm:text-xs md:text-sm tracking-wide uppercase">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -755,11 +766,11 @@ function Contact() {
 
       {/* Footer Bar */}
       <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 pt-8 border-t border-stroke/40 gap-4 text-xs text-muted">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
           <span className="flex items-center gap-1">
             <MapPin size={12} className="text-[#89AACC]" /> Riyadh, KSA
           </span>
-          <span>•</span>
+          <span className="hidden sm:inline">•</span>
           <span>© 2026 YK Design. All Rights Reserved.</span>
         </div>
 
@@ -909,7 +920,7 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    <div className="bg-bg/10 text-text-primary min-h-screen scroll-smooth">
+    <div className="bg-bg/10 text-text-primary min-h-screen scroll-smooth overflow-x-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
 
@@ -932,6 +943,7 @@ export default function App() {
           font-family: 'Inter', sans-serif;
           background-color: hsl(var(--bg));
           color: hsl(var(--text));
+          overflow-x: hidden;
         }
 
         .font-body {
